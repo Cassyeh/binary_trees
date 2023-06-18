@@ -42,13 +42,13 @@ size_t binary_tree_height(const binary_tree_t *tree)
 }
 
 /**
- * binary_tree_balance - function that measures the balance factor of a binary tree
+ * binary_tree_size - function that measures the size of a binary tree
  *
- * @tree: is a pointer to the root node of the tree to measure the balance factor
+ * @tree: is a pointer to the root node of the tree to measure the size
  *
- * Return: balance factor of tree
+ * Return: size of tree
  */
-int binary_tree_balance(const binary_tree_t *tree)
+size_t binary_tree_size(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 	{
@@ -58,23 +58,39 @@ int binary_tree_balance(const binary_tree_t *tree)
 	{
 		size_t a;
 		size_t b;
-		if (tree->left == NULL) 
+		if (tree->left == NULL && tree->right == NULL && tree->parent == NULL)
+		{
+			a = 1;
+		}
+		else if (tree->parent == NULL)
+		{
+			a = 0 + binary_tree_size(tree->left);
+		}
+		else if (tree->left == NULL && tree->right == NULL)
+		{
+			a = 1;
+		}
+		else if (tree->left == NULL)
 		{
 			a = 0;
 		}
 		else
 		{
-			a = 1 + binary_tree_height(tree->left);
+			a = 1 + binary_tree_size(tree->left);
 		}
-		if (tree->right == NULL)
+		if (tree->left != NULL && tree->right != NULL && tree->parent != NULL)
+		{
+			b = 0 + binary_tree_size(tree->right);
+		}
+		else if (tree->right == NULL)
 		{
 			b = 0;
 		}
 		else
 		{
-			b = 1 + binary_tree_height(tree->right);
+			b = 1 + binary_tree_size(tree->right);
 		}
-		return (a - b);
+		return (a+b);
 	}
 }
 /**
@@ -86,8 +102,24 @@ int binary_tree_balance(const binary_tree_t *tree)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int a = binary_tree_balance(tree);
-	if (a == 0)
+	size_t s = binary_tree_size(tree);
+	size_t h = binary_tree_height(tree);
+	int a = 2;
+	int b = h + 1;
+	int i;
+	int temp = a;
+	if (b == 0)
+	{
+		a = 1;
+	}
+	else
+	{
+		for (i = 1; i < b; i++)
+		{
+			a = a * temp;	
+		}
+	}
+	if (s == (a - 1))
 	{
 		return (1);
 	}
