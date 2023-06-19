@@ -9,7 +9,7 @@
  */
 size_t binary_tree_height(const binary_tree_t *tree)
 {
-    if (tree == NULL)
+	if (tree == NULL)
 	{
 		return (0);
 	}
@@ -17,6 +17,7 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	{
 		size_t a;
 		size_t b;
+
 		if (tree->left == NULL)
 		{
 			a = 0;
@@ -58,6 +59,7 @@ size_t binary_tree_size(const binary_tree_t *tree)
 	{
 		size_t a;
 		size_t b;
+
 		if (tree->left == NULL && tree->right == NULL && tree->parent == NULL)
 		{
 			a = 1;
@@ -75,9 +77,7 @@ size_t binary_tree_size(const binary_tree_t *tree)
 			a = 0;
 		}
 		else
-		{
 			a = 1 + binary_tree_size(tree->left);
-		}
 		if (tree->left != NULL && tree->right != NULL && tree->parent != NULL)
 		{
 			b = 0 + binary_tree_size(tree->right);
@@ -87,10 +87,8 @@ size_t binary_tree_size(const binary_tree_t *tree)
 			b = 0;
 		}
 		else
-		{
 			b = 1 + binary_tree_size(tree->right);
-		}
-		return (a+b);
+		return (a + b);
 	}
 }
 /**
@@ -104,10 +102,11 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 {
 	size_t s = binary_tree_size(tree);
 	size_t h = binary_tree_height(tree);
-	int a = 2;
-	int b = h + 1;
-	int i;
-	int temp = a;
+	size_t a = 2;
+	size_t b = h + 1;
+	size_t i;
+	size_t temp = a;
+
 	if (b == 0)
 	{
 		a = 1;
@@ -116,7 +115,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	{
 		for (i = 1; i < b; i++)
 		{
-			a = a * temp;	
+			a = a * temp;
 		}
 	}
 	if (s == (a - 1))
